@@ -4,7 +4,7 @@ import { useState } from "react";
 export default function Footer() {
   // links in form {{href}:{title}}
   const [links] = useState({
-    ["/"]: "Home",
+    [""]: "Home",
     about: "About",
     conact: "Contact",
     legal: "Legal",
@@ -14,8 +14,8 @@ export default function Footer() {
     <footer className="w-screen py-10 space-y-8 bg-black text-neutral-500 text-sm">
       <ul className="w-full flex justify-center space-x-8">
         {Object.keys(links).map((href) => (
-          <li>
-            <Link href={href}>
+          <li key={href}>
+            <Link href={`/${href}`}>
               <a>{links[href]}</a>
             </Link>
           </li>
@@ -33,7 +33,7 @@ export default function Footer() {
               height="20"
               viewBox="0 0 24 24"
               stroke="currentColor"
-              stroke-width="2"
+              strokeWidth="2"
             >
               <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
             </svg>
@@ -44,7 +44,10 @@ export default function Footer() {
         </li>
       </ul>
       <div className="w-full flex justify-center">
-        <span className="text-sm">made with ❤️ by kingjulien1</span>
+        <span className="text-sm">
+          made with ❤️ by{" "}
+          <a href="https://github.com/kingjulien1">kingjulien1</a>
+        </span>
       </div>
     </footer>
   );
@@ -58,7 +61,7 @@ function ColorModeToggle() {
         height="20"
         viewBox="0 0 24 24"
         stroke="currentColor"
-        stroke-width="2"
+        strokeWidth="2"
       >
         <circle cx="12" cy="12" r="5"></circle>
         <line x1="12" y1="1" x2="12" y2="3"></line>
