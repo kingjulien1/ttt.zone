@@ -58,12 +58,13 @@ export default async function instagram(req, res) {
 
   // fetch profile picture url from instagram directly
   try {
+    // todo: send this request via a proxy, instagram rate limits calls to this url from same ip
     const response = await fetch(`https://www.instagram.com/${artist.username}/?__a=1`);
-    const { profile_pic_url: url } = (await response.json()).graphql.user;
+    const url = (await response.json())?.graphql?.user?.profile_pic_url || "";
     artist = { ...artist, url };
   } catch (error) {
     console.error(`error in function 'instagram' @ getting profile picture url: ${error}`);
-    return res.status(500).send("couldn't fetch profile pic.");
+    //return res.status(500).send("couldn't fetch profile pic.");
   }
 
   // create user in database
