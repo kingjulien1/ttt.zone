@@ -1,12 +1,13 @@
 import { useAuthStore } from "@/lib/state/auth";
 import { gql } from "graphql-request";
+import { decode } from "jsonwebtoken";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import useSWR from "swr";
 
-const getArtist = gql`
-  query Artist($user_id: Int64) {
+const query = gql`
+  query Artist($user_id: Int64!) {
     getArtist(user_id: $user_id) {
       username
       url
@@ -15,22 +16,14 @@ const getArtist = gql`
 `;
 
 export default function Profile() {
-  const { query, push } = useRouter();
-  const setToken = useAuthStore((state) => state.setToken);
-  const setUserId = useAuthStore((state) => state.setUserId);
-  const userId = useAuthStore((state) => state.userId);
+  const router = useRouter();
+  const { token, setToken } = useAuthStore((state) => state);
 
   useEffect(() => {
-    //jwt token was passed -> update client state (on sign in & on jwt-revalidation in getServerSideProps)
-    if (!!query.token) setToken(query.token);
-    //userId was passed -> update client state (only on sign in)
-    if (!!query.userId) setUserId(query.userId);
-  }, [query, setToken, setUserId]);
+    if (!!router.query?.token) setToken(router.query.token);
+  }, [router.query]);
 
-  const { data, error } = useSWR([
-    userId ? getArtist : null,
-    { user_id: userId },
-  ]);
+  const { data, error } = useSWR(!!token ? [query, { user_id: decode(token)?.user_id?.toString() }] : null);
 
   return (
     <main className="pt-24 h-screen w-screen flex justify-center items-center flex-col">
@@ -40,22 +33,24 @@ export default function Profile() {
         ) : (
           <div className="flex flex-col space-y-10">
             <div>
-              <Image
-                src={data.getArtist.url}
-                layout="responsive"
-                width={10}
-                height={10}
-                className="rounded-md"
-              />
+              {data?.getArtist?.url && (
+                <Image
+                  src={data?.getArtist?.url}
+                  alt="profile pic"
+                  layout="responsive"
+                  width={10}
+                  height={10}
+                  className="rounded-md"
+                />
+              )}
             </div>
-            <pre>
-              {JSON.stringify({ username: data.getArtist.username }, null, 2)}
-            </pre>
+            <pre>{JSON.stringify({ username: data?.getArtist?.username }, null, 2)}</pre>
             <button
               className="btn"
               onClick={() => {
+                // update client state
                 setToken(null);
-                push("/");
+                router.push("/");
               }}
             >
               Sign Out

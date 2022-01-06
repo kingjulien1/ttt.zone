@@ -29,10 +29,7 @@ export default function Join() {
             </Transition.Child>
 
             {/* This element is to trick the browser into centering the modal contents. */}
-            <span
-              className="inline-block h-screen align-middle"
-              aria-hidden="true"
-            >
+            <span className="inline-block h-screen align-middle" aria-hidden="true">
               &#8203;
             </span>
             <Transition.Child
@@ -45,10 +42,7 @@ export default function Join() {
               leaveTo="opacity-0 scale-95"
             >
               <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                <Dialog.Title
-                  as="h3"
-                  className="text-lg text-center font-medium leading-6 text-gray-900"
-                >
+                <Dialog.Title as="h3" className="text-lg text-center font-medium leading-6 text-gray-900">
                   Join the zone
                 </Dialog.Title>
                 <div className="my-6 w-full flex justify-center">
@@ -62,19 +56,11 @@ export default function Join() {
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="feather feather-instagram"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       >
-                        <rect
-                          x="2"
-                          y="2"
-                          width="20"
-                          height="20"
-                          rx="5"
-                          ry="5"
-                        ></rect>
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                       </svg>
@@ -84,9 +70,8 @@ export default function Join() {
                 </div>
                 <div className="mt-2">
                   <p className="text-sm text-gray-500 text-center">
-                    Please note that only tattoo-artists should sign-up and make
-                    an account. If you are a customer, you can just use this
-                    site anonymously.
+                    Please note that only tattoo-artists should sign-up and make an account. If you are a customer, you
+                    can just use this site anonymously.
                   </p>
                 </div>
               </div>
