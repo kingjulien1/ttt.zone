@@ -64,7 +64,6 @@ export default async function instagram(req, res) {
     artist = { ...artist, url };
   } catch (error) {
     console.info(`error in function 'instagram' @ getting profile picture url: ${error}`);
-    artist.url = "none";
     //return res.status(500).send("couldn't fetch profile pic.");
   }
 
